@@ -26,6 +26,10 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry, asyn
     system = hass.data[DOMAIN][config_entry.entry_id]["system"]
     fan = FreshAirFan(config_entry, system)
     async_add_entities([fan])
+    fan_E = FreshAirFanExhaust(config_entry, system)
+    async_add_entities([fan_E])
+    fan_S = FreshAirFanSupply(config_entry, system)
+    async_add_entities([fan_S])
 
     # Schedule regular updates
     async def async_update(now=None):
@@ -38,6 +42,26 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry, asyn
                 fan.async_write_ha_state()
         except Exception as e:
             logging.getLogger(__name__).error(f"Error updating fan state: {e}", exc_info=True)
+
+        try:
+            # 使用 async_add_executor_job 运行同步的 update 方法
+            await hass.async_add_executor_job(fan.update)
+            # 确保实体已添加到 hass 并且状态有效
+            if fan_E.hass and fan_E.available:
+                fan_E.async_write_ha_state()
+        except Exception as e:
+            logging.getLogger(__name__).error(f"Error updating fan_E state: {e}", exc_info=True)
+
+
+        try:
+            # 使用 async_add_executor_job 运行同步的 update 方法
+            await hass.async_add_executor_job(fan.update)
+            # 确保实体已添加到 hass 并且状态有效
+            if fan_S.hass and fan_S.available:
+                fan_S.async_write_ha_state()
+        except Exception as e:
+            logging.getLogger(__name__).error(f"Error updating fan_S state: {e}", exc_info=True)
+
 
     # 使用事件调度器设置定期更新
     async_track_time_interval(hass, async_update, timedelta(seconds=30))
