@@ -362,7 +362,7 @@ class FreshAirFanExhaust(FanEntity):
     @property
     def percentage(self) -> Optional[int]:
         """Return the current speed percentage."""
-        return ordered_list_item_to_percentage(ORDERED_NAMED_FAN_SPEEDS, self._system.supply_speed)
+        return ordered_list_item_to_percentage(ORDERED_NAMED_FAN_SPEEDS, self._system.exhaust_speed)
 
     async def async_added_to_hass(self) -> None:
         """Run when entity about to be added to hass."""
