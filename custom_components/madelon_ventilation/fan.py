@@ -375,7 +375,7 @@ class FreshAirFanExhaust(FanEntity):
         """Update the fan's state."""
         try:
             power = self._system.power
-            speed = self._system.supply_speed
+            speed = self._system.exhaust_speed
 
             self._attr_is_on = power if power is not None else False
             
