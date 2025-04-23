@@ -175,10 +175,10 @@ class FreshAirFanSupply(FanEntity):
         super().__init__()
         self._system = system
         self._attr_has_entity_name = True
-        self._attr_name = "Fan"
+        self._attr_name = "Fan_Supply"
         self._attr_is_on = False
         self._attr_percentage = 0
-        self._attr_unique_id = f"{DOMAIN}_fan_{system.unique_identifier}"
+        self._attr_unique_id = f"{DOMAIN}_Supply_{system.unique_identifier}"
         # Remove preset modes to prevent them from showing in HomeKit
         self._attr_preset_modes = None
         self._attr_preset_mode = None
@@ -301,10 +301,10 @@ class FreshAirFanExhaust(FanEntity):
         super().__init__()
         self._system = system
         self._attr_has_entity_name = True
-        self._attr_name = "Fan"
+        self._attr_name = "Fan_Exhaust"
         self._attr_is_on = False
         self._attr_percentage = 0
-        self._attr_unique_id = f"{DOMAIN}_fan_{system.unique_identifier}"
+        self._attr_unique_id = f"{DOMAIN}_Exhaust_{system.unique_identifier}"
         # Remove preset modes to prevent them from showing in HomeKit
         self._attr_preset_modes = None
         self._attr_preset_mode = None
