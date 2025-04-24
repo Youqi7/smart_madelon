@@ -125,3 +125,31 @@ class FreshAirSupplySpeedSensor(SensorEntity):
         """Update the sensor."""
         self._attr_native_value = self._system.supply_speed 
 
+
+class FreshAirExhaustSpeedSensor(SensorEntity):
+    _attr_has_entity_name = True
+    _attr_name = "Fan"
+    _attr_state_class = None
+    _attr_device_class = SensorDeviceClass.ENUM
+
+    def __init__(self, entry: ConfigEntry, system):
+        super().__init__()
+        self._system = system
+        self._attr_unique_id = f"{entry.entry_id}_ExhaustSpeed"
+        self._options = {1,2,3,0}
+        self._attr_native_value = None
+
+    @property
+    def device_info(self) -> DeviceInfo:
+        """Return device information about this entity."""
+        return DeviceInfo(
+            identifiers={(DOMAIN, self._system.unique_identifier)},
+            name="Fresh Air System",
+            manufacturer=DEVICE_MANUFACTURER,
+            model=DEVICE_MODEL,
+            sw_version=DEVICE_SW_VERSION,
+        )
+
+    def update(self) -> None:
+        """Update the sensor."""
+        self._attr_native_value = self._system.exhaust_speed 
