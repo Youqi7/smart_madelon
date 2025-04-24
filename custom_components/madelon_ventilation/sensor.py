@@ -99,7 +99,7 @@ class FreshAirHumiditySensor(SensorEntity):
         
 class FreshAirSupplySpeedSensor(SensorEntity):
     _attr_has_entity_name = True
-    _attr_name = "Fan"
+    _attr_name = "SupplyFan"
     _attr_state_class = None
     _attr_device_class = SensorDeviceClass.ENUM
 
@@ -128,7 +128,7 @@ class FreshAirSupplySpeedSensor(SensorEntity):
 
 class FreshAirExhaustSpeedSensor(SensorEntity):
     _attr_has_entity_name = True
-    _attr_name = "Fan"
+    _attr_name = "ExhaustFan"
     _attr_state_class = None
     _attr_device_class = SensorDeviceClass.ENUM
 
